@@ -4,6 +4,7 @@ import qrcode
 import boto3
 import os
 from io import BytesIO
+import traceback
 
 # Loading Environment variable (AWS Access Key and Secret Key)
 from dotenv import load_dotenv
@@ -68,7 +69,7 @@ async def generate_qr(url: str):
         s3_url = f"https://{bucket_name}.s3.amazonaws.com/{file_name}"
         return {"qr_code_url": s3_url}
     except Exception as e:
-        import traceback
+        
         traceback.print_exc()
         raise HTTPException(status_code=500, detail=f"Upload failed: {str(e)}")
         # raise HTTPException(status_code=500, detail=str(e))
